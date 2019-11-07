@@ -43,6 +43,11 @@ matrix:
       script:
       - java -version
       - sbt "++${TRAVIS_SCALA_VERSION}!" scalapropsJS/test scalapropsJVM/test scalazJS/test scalazJVM/test "project /" publishLocal
+    - scala: 2.12.10
+      jdk: openjdk14
+      script:
+      - java -version
+      - sbt "++${TRAVIS_SCALA_VERSION}!" scalapropsJS/test scalapropsJVM/test scalazJS/test scalazJVM/test "project /" publishLocal
     - os: windows
       language: bash
       env:
