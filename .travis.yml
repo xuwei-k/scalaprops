@@ -2,12 +2,6 @@ language: scala
 
 dist: xenial
 
-scala:
-  - 2.10.7
-  - 2.11.12
-  - 2.12.10
-  - 2.13.1
-
 cache:
   directories:
     - $HOME/.ivy2/cache
@@ -30,31 +24,8 @@ before_cache:
 
 matrix:
   include:
-    - scala: SCALA_NATIVE
-      jdk: openjdk8
-      sudo: required
-      before_install:
-      - curl https://raw.githubusercontent.com/scala-native/scala-native/master/scripts/travis_setup.sh | bash -x
-      - wget https://raw.githubusercontent.com/paulp/sbt-extras/aa4425cc96aee/sbt && chmod +x ./sbt
-      script:
-      - ./sbt -J-Xmx5G rootNative/compile scalapropsNative/test scalazNative/test
-    - scala: 2.12.10
-      jdk: openjdk11
-      script:
-      - java -version
-      - sbt "++${TRAVIS_SCALA_VERSION}!" scalapropsJS/test scalapropsJVM/test scalazJS/test scalazJVM/test "project /" publishLocal
     - scala: 2.12.10
       jdk: openjdk14
       script:
       - java -version
       - sbt "++${TRAVIS_SCALA_VERSION}!" scalapropsJS/test scalapropsJVM/test scalazJS/test scalazJVM/test "project /" publishLocal
-    - os: windows
-      language: bash
-      env:
-      - JDK="adopt@1.8.0-222"
-      before_install:
-      - curl "https://raw.githubusercontent.com/DanySK/Gravis-CI/c8f400623d8f756ef7c/.install-jdk-travis.sh" --output .install-jdk-travis.sh
-      - source .install-jdk-travis.sh
-      script:
-      - wget https://raw.githubusercontent.com/paulp/sbt-extras/aa4425cc96aee/sbt && chmod +x ./sbt
-      - ./sbt "++ 2.13.1" compile test:compile scalapropsJVM/test scalazJVM/test "project /" publishLocal
